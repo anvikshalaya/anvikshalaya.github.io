@@ -1,0 +1,120 @@
+/* Anvikshalaya: living station layer (v3). Sits on top of the approved design. */
+
+/* ---------- Station notices ticker ---------- */
+.notices{position:relative;display:flex;align-items:center;background:#18161f;border-bottom:1px solid var(--brand-line);overflow:hidden;height:34px;font:10px/1 monospace;letter-spacing:1.6px;color:#bfb3a0;text-transform:uppercase}
+.notices-label{flex:none;display:flex;align-items:center;gap:8px;height:100%;padding:0 16px 0 6%;background:#18161f;color:#e3c17e;z-index:1;box-shadow:12px 0 14px #18161f}
+.notices-label i{width:6px;height:6px;border-radius:50%;background:#e3b967;box-shadow:0 0 8px #e3b967;animation:blink 2.4s steps(2,start) infinite}
+.notices-track{display:flex;white-space:nowrap;animation:ticker 48s linear infinite;will-change:transform}
+.notices:hover .notices-track{animation-play-state:paused}
+.notices-track span{padding:0 28px}
+.notices-track span:before{content:'◆';color:#a88a55;font-size:7px;margin-right:28px;vertical-align:1px}
+.notices-track b{color:#f0dfb8;font-weight:400}
+@keyframes ticker{to{transform:translateX(-50%)}}
+@keyframes blink{50%{opacity:.25}}
+
+/* ---------- Live IST clock ---------- */
+.clock .ist{font:12px monospace;letter-spacing:2px;color:#cdbb97;margin-right:6px;display:inline-flex;align-items:baseline;gap:6px}
+.clock .ist small{font-size:8px;letter-spacing:1.5px;color:#8f8597}
+.clock .ist .colon{animation:blink 2s steps(2,start) infinite}
+
+/* ---------- Living lantern ---------- */
+.lamp-sign{isolation:isolate}
+.lantern-btn{position:relative;background:none;border:0;padding:0;display:block;cursor:pointer;border-radius:12px}
+.lantern-btn img{position:relative;z-index:2;transition:filter .6s ease}
+.lamp-glow{position:absolute;left:50%;top:52%;width:330px;height:330px;transform:translate(-50%,-50%);border-radius:50%;z-index:0;pointer-events:none;
+  background:radial-gradient(circle,#ffb84a38 0%,#f39a3a1c 32%,#f39a3a00 66%);animation:flicker 4.2s infinite ease-in-out;transition:opacity .8s}
+.hero.dark-lamp .lamp-glow{opacity:0}
+.hero.dark-lamp .lantern-btn img{filter:brightness(.42) saturate(.5) drop-shadow(0 0 0 #0000)}
+.hero{transition:background-color .8s}
+@keyframes flicker{0%,100%{opacity:1;transform:translate(-50%,-50%) scale(1)}18%{opacity:.86;transform:translate(-50%,-50%) scale(.97)}22%{opacity:1}47%{opacity:.92;transform:translate(-50%,-50%) scale(1.02)}63%{opacity:.8}66%{opacity:.97}83%{opacity:.9;transform:translate(-50%,-50%) scale(.99)}}
+.embers{position:absolute;inset:0;pointer-events:none;z-index:1}
+.embers i{position:absolute;bottom:34%;left:50%;width:3px;height:3px;background:#ffd27a;box-shadow:0 0 6px #ffb84a;opacity:0;animation:ember 6s infinite ease-out}
+.hero.dark-lamp .embers{opacity:0}
+@keyframes ember{0%{opacity:0;transform:translate(0,0)}15%{opacity:.9}100%{opacity:0;transform:translate(var(--dx),-170px)}}
+.lamp-hint{display:block;font:8px monospace;letter-spacing:2px;color:#8b8090;margin-top:10px;opacity:.85;transition:color .3s}
+.lantern-btn:hover~.lamp-hint{color:#e3c17e}
+
+/* ---------- Split-flap board ---------- */
+.departure strong .flap{display:inline-block;width:1.08em;text-align:center;margin-right:2px;padding:3px 0 2px;background:linear-gradient(#1d1b28 0 49%,#0c0b12 49% 51%,#1b1926 51%);border-radius:2px;box-shadow:inset 0 1px #ffffff0d,0 1px 2px #0006;letter-spacing:0}
+.departure strong .flap.spin{color:#a99778}
+.flip-text .ch.spin{color:#8d8170}
+
+/* ---------- Train on the platform (Moonrail's own art, in its art-pixel grid) ---------- */
+.platform-line{position:relative;overflow:visible;padding-top:128px}
+.platform-line .rail{position:absolute;left:0;right:0;bottom:21px;height:2px;background:repeating-linear-gradient(90deg,#8d7550 0 14px,#5a4b38 14px 18px);opacity:.55}
+.train{--u:1.35;position:absolute;left:0;bottom:calc(22px - 3px*var(--u));width:calc(232px*var(--u));height:calc(86px*var(--u));pointer-events:none;transform:translateX(-360px);opacity:0}
+.train.run{animation:train-run 12s cubic-bezier(.42,.02,.58,.98) forwards}
+.tr{position:relative;width:100%;height:100%;filter:drop-shadow(0 6px 10px #0006)}
+.tr-body{position:absolute;inset:0;width:100%;height:100%}
+.tr i{position:absolute;display:block}
+.wh{left:calc(var(--x)*1px*var(--u));background-repeat:no-repeat}
+.wh.s{top:calc(75px*var(--u));width:calc(8px*var(--u));height:calc(8px*var(--u));background-image:url(assets/train/wheel-small.png);background-size:calc(32px*var(--u)) 100%}
+.wh.b{top:calc(71px*var(--u));width:calc(11px*var(--u));height:calc(11px*var(--u));background-image:url(assets/train/wheel-big.png);background-size:calc(44px*var(--u)) 100%}
+.train.run .wh.s{animation:spin-s .34s steps(4) infinite}
+.train.run .wh.b{animation:spin-b .34s steps(4) infinite}
+@keyframes spin-s{to{background-position:calc(-32px*var(--u)) 0}}
+@keyframes spin-b{to{background-position:calc(-44px*var(--u)) 0}}
+.rod.dark{left:calc(140px*var(--u));top:calc(75px*var(--u));width:calc(40px*var(--u));height:calc(4px*var(--u));background:#3A2410}
+.rod.gold{left:calc(141px*var(--u));top:calc(76px*var(--u));width:calc(38px*var(--u));height:calc(2px*var(--u));background:#F2B632}
+.train.run .rod{animation:rod .34s infinite}
+@keyframes rod{0%,24.9%{transform:translate(calc(2px*var(--u)),0)}25%,49.9%{transform:translate(0,calc(2px*var(--u)))}50%,74.9%{transform:translate(calc(-2px*var(--u)),0)}75%,100%{transform:translate(0,calc(-2px*var(--u)))}}
+.beam{left:calc(203px*var(--u));top:calc(48px*var(--u));width:calc(70px*var(--u));height:calc(18px*var(--u));border-radius:50%;background:radial-gradient(ellipse at 10% 50%,#ffe7a8cc,#ffcf6a55 30%,#ffcf6a00 70%);animation:beam 1.33s steps(1) infinite}
+@keyframes beam{50%{opacity:.85}}
+.puff{left:calc(186px*var(--u));top:calc(29px*var(--u));width:calc(18px*var(--u));height:calc(11px*var(--u));background:url(assets/train/steam.png) 0 0/calc(90px*var(--u)) 100% no-repeat;opacity:0}
+.train.run .puff{animation:puff-move 1.33s linear infinite,puff-frame 1.33s steps(5) infinite}
+.train.run .puff.p2{animation-delay:-.44s}
+.train.run .puff.p3{animation-delay:-.89s}
+@keyframes puff-move{0%{opacity:.95;transform:translate(0,0)}85%{opacity:.8}100%{opacity:0;transform:translate(calc(-22px*var(--u)),calc(-26px*var(--u)))}}
+@keyframes puff-frame{to{background-position:calc(-90px*var(--u)) 0}}
+@keyframes train-run{0%{opacity:1;transform:translateX(-360px)}100%{opacity:1;transform:translateX(calc(var(--track) + 40px))}}
+
+/* ---------- Scroll reveal ---------- */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+
+/* ---------- Origin sky ---------- */
+.origin{position:relative;overflow:hidden}
+.origin>*:not(.sky){position:relative;z-index:1}
+.sky{position:absolute;inset:0;pointer-events:none}
+.sky i{position:absolute;width:2px;height:2px;background:#f6e3b4;border-radius:50%;opacity:.15;animation:twinkle 5s infinite ease-in-out}
+@keyframes twinkle{50%{opacity:.75}}
+.origin blockquote .line{display:block}
+
+/* ---------- Boarding pass ---------- */
+.pass{display:flex;flex:none;text-decoration:none;color:#2f2737;background:#f3e3c3;border-radius:6px;box-shadow:0 14px 34px #0005;transform:rotate(-1.2deg);transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s;font-family:monospace;position:relative}
+.studio-note a.pass{border:0;padding:0;color:#2f2737;white-space:normal}
+.pass:hover{transform:rotate(0) translateY(-3px);box-shadow:0 20px 40px #0006}
+.pass-main,.pass-top,.pass-route,.pass-mail{display:block}.pass-top,.pass-route{display:flex}.pass-main{padding:18px 22px 16px;min-width:270px}
+.pass-top{display:flex;justify-content:space-between;align-items:center;font-size:9px;letter-spacing:2px;color:#8a6e51;border-bottom:1px dashed #8a6e5155;padding-bottom:10px}
+.pass-top img{width:22px;height:22px;object-fit:contain}
+.pass-route{display:flex;align-items:center;gap:14px;margin:14px 0 10px}
+.pass-route .stop span{display:block;font-size:8px;letter-spacing:1.5px;color:#9b8566}
+.pass-route .stop b{display:block;font:500 17px Cinzel,Georgia,serif;letter-spacing:2px;color:#2f2737;margin-top:3px}
+.pass-route .arr{font-size:16px;color:#b18a4a}
+.pass-mail{font-size:11px;letter-spacing:.3px;color:#4b3f50}
+.pass-stub{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:14px 16px;border-left:2px dashed #8a6e5166;background:#ead6ae;border-radius:0 6px 6px 0;min-width:96px;text-align:center}
+.pass-stub span{font-size:8px;letter-spacing:1.5px;color:#7d6447}
+.pass-stub b{font:500 13px Cinzel,Georgia,serif;letter-spacing:2px;color:#2f2737}
+.pass-stub em{font:italic 15px Cormorant,Georgia,serif;color:#6a5643}
+.pass:before,.pass:after{content:'';position:absolute;width:14px;height:14px;border-radius:50%;background:#1d1b28;right:89px}
+.pass:before{top:-7px}.pass:after{bottom:-7px}
+
+/* ---------- Small screens ---------- */
+@media(max-width:700px){
+  .notices{height:30px;font-size:9px}.notices-label{padding-left:5%}
+  .lamp-glow{width:220px;height:220px}
+  .platform-line{padding-top:96px}.train{--u:1}
+  .pass-main{min-width:0;flex:1}
+}
+@media(max-width:560px){
+  .platform-line{padding-top:74px}.train{--u:.75;bottom:calc(18px - 3px*var(--u))}.platform-line .rail{bottom:17px}
+  .clock .ist{display:none}
+  .lamp-hint{font-size:6px;letter-spacing:1px}
+  .lamp-glow{width:170px;height:170px}
+  .departure strong .flap{width:1.08em;margin-right:1px;padding:2px 0 1px}
+  .studio-note .pass{margin-top:24px;display:flex}
+  .pass:before,.pass:after{right:85px}
+}
+@media(prefers-reduced-motion:reduce){
+  .notices-track{animation:none}.train{display:none}.reveal{opacity:1;transform:none}
+}
