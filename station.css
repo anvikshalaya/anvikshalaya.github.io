@@ -19,12 +19,12 @@
 
 /* ---------- Living lantern ---------- */
 .lamp-sign{isolation:isolate}
-.lantern-btn{position:relative;background:none;border:0;padding:0;display:block;cursor:pointer;border-radius:12px}
-.lantern-btn img{position:relative;z-index:2;transition:filter .6s ease}
+.lantern-btn{position:relative;background:none;border:0;padding:0;display:block;cursor:pointer;border-radius:12px;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.lamp-sign .lantern-btn img{position:relative;z-index:2;opacity:1;transition:opacity .6s ease}
 .lamp-glow{position:absolute;left:50%;top:52%;width:330px;height:330px;transform:translate(-50%,-50%);border-radius:50%;z-index:0;pointer-events:none;
   background:radial-gradient(circle,#ffb84a38 0%,#f39a3a1c 32%,#f39a3a00 66%);animation:flicker 4.2s infinite ease-in-out;transition:opacity .8s}
-.hero.dark-lamp .lamp-glow{opacity:0}
-.hero.dark-lamp .lantern-btn img{filter:brightness(.42) saturate(.5) drop-shadow(0 0 0 #0000)}
+.hero.dark-lamp .lamp-glow{animation:none;opacity:0}
+.hero.dark-lamp .lamp-sign .lantern-btn img{opacity:.38}
 .hero{transition:background-color .8s}
 @keyframes flicker{0%,100%{opacity:1;transform:translate(-50%,-50%) scale(1)}18%{opacity:.86;transform:translate(-50%,-50%) scale(.97)}22%{opacity:1}47%{opacity:.92;transform:translate(-50%,-50%) scale(1.02)}63%{opacity:.8}66%{opacity:.97}83%{opacity:.9;transform:translate(-50%,-50%) scale(.99)}}
 .embers{position:absolute;inset:0;pointer-events:none;z-index:1}
