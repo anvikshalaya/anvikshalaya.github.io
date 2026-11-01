@@ -39,34 +39,43 @@
 .departure strong .flap.spin{color:#a99778}
 .flip-text .ch.spin{color:#8d8170}
 
-/* ---------- Train on the platform (Moonrail's own art, in its art-pixel grid) ---------- */
+/* ---------- Train on the platform (Moonrail's HD train, rigged as on moonrailapp.github.io) ----------
+   Every number is the Moonrail site's, in px of the HD body (2054 x 445, js/ride.js WHEELS and drawTrain);
+   --k is screen px per body px. */
 .platform-line{position:relative;overflow:visible;padding-top:128px}
 .platform-line .rail{position:absolute;left:0;right:0;bottom:21px;height:2px;background:repeating-linear-gradient(90deg,#8d7550 0 14px,#5a4b38 14px 18px);opacity:.55}
-.train{--u:1.35;position:absolute;left:0;bottom:calc(22px - 3px*var(--u));width:calc(232px*var(--u));height:calc(86px*var(--u));pointer-events:none;transform:translateX(-360px);opacity:0}
+.train{--k:.146;position:absolute;left:0;bottom:22px;width:calc(2054px*var(--k));height:calc(445px*var(--k));pointer-events:none;transform:translateX(-360px);opacity:0}
 .train.run{animation:train-run 12s cubic-bezier(.42,.02,.58,.98) forwards}
 .tr{position:relative;width:100%;height:100%;filter:drop-shadow(0 6px 10px #0006)}
-.tr-body{position:absolute;inset:0;width:100%;height:100%}
-.tr i{position:absolute;display:block}
-.wh{left:calc(var(--x)*1px*var(--u));background-repeat:no-repeat}
-.wh.s{top:calc(75px*var(--u));width:calc(8px*var(--u));height:calc(8px*var(--u));background-image:url(assets/train/wheel-small.png);background-size:calc(32px*var(--u)) 100%}
-.wh.b{top:calc(71px*var(--u));width:calc(11px*var(--u));height:calc(11px*var(--u));background-image:url(assets/train/wheel-big.png);background-size:calc(44px*var(--u)) 100%}
-.train.run .wh.s{animation:spin-s .34s steps(4) infinite}
-.train.run .wh.b{animation:spin-b .34s steps(4) infinite}
-@keyframes spin-s{to{background-position:calc(-32px*var(--u)) 0}}
-@keyframes spin-b{to{background-position:calc(-44px*var(--u)) 0}}
-.rod.dark{left:calc(140px*var(--u));top:calc(75px*var(--u));width:calc(40px*var(--u));height:calc(4px*var(--u));background:#3A2410}
-.rod.gold{left:calc(141px*var(--u));top:calc(76px*var(--u));width:calc(38px*var(--u));height:calc(2px*var(--u));background:#F2B632}
-.train.run .rod{animation:rod .34s infinite}
-@keyframes rod{0%,24.9%{transform:translate(calc(2px*var(--u)),0)}25%,49.9%{transform:translate(0,calc(2px*var(--u)))}50%,74.9%{transform:translate(calc(-2px*var(--u)),0)}75%,100%{transform:translate(0,calc(-2px*var(--u)))}}
-.beam{left:calc(203px*var(--u));top:calc(48px*var(--u));width:calc(70px*var(--u));height:calc(18px*var(--u));border-radius:50%;background:radial-gradient(ellipse at 10% 50%,#ffe7a8cc,#ffcf6a55 30%,#ffcf6a00 70%);animation:beam 1.33s steps(1) infinite}
-@keyframes beam{50%{opacity:.85}}
-.puff{left:calc(186px*var(--u));top:calc(29px*var(--u));width:calc(18px*var(--u));height:calc(11px*var(--u));background:url(assets/train/steam.png) 0 0/calc(90px*var(--u)) 100% no-repeat;opacity:0}
-.train.run .puff{animation:puff-move 1.33s linear infinite,puff-frame 1.33s steps(5) infinite}
-.train.run .puff.p2{animation-delay:-.44s}
-.train.run .puff.p3{animation-delay:-.89s}
-@keyframes puff-move{0%{opacity:.95;transform:translate(0,0)}85%{opacity:.8}100%{opacity:0;transform:translate(calc(-22px*var(--u)),calc(-26px*var(--u)))}}
-@keyframes puff-frame{to{background-position:calc(-90px*var(--u)) 0}}
+.tr>*{position:absolute;display:block}
+.tr-body{inset:0;width:100%;height:100%}
+.tr-front{background:url(assets/train-hd/body_momo.webp) no-repeat;background-size:calc(2054px*var(--k)) calc(445px*var(--k))}
+.tr-front.car{left:0;top:0;width:calc(1103px*var(--k));height:calc(356px*var(--k))}
+.tr-front.cyl{left:calc(1763px*var(--k));top:calc(268px*var(--k));width:calc(115px*var(--k));height:calc(120px*var(--k));background-position:calc(-1763px*var(--k)) calc(-268px*var(--k))}
+.wh{--s:calc(var(--d)*1.015);left:calc((var(--x) - var(--s)/2)*1px*var(--k));top:calc((var(--y) - var(--s)/2)*1px*var(--k));width:calc(var(--s)*1px*var(--k));height:calc(var(--s)*1px*var(--k));background:no-repeat center/100% 100%}
+.wh.c{--y:384;--d:100;background-image:url(assets/train-hd/wheel_coach.webp)}
+.wh.b{--y:381;--d:114;background-image:url(assets/train-hd/wheel_big.webp)}
+.wh.f{--y:403;--d:58;background-image:url(assets/train-hd/wheel_front.webp)}
+.train.run .wh{animation:wheel var(--t,.45s) linear infinite}
+.train.run .wh.c{--t:.4s}.train.run .wh.f{--t:.23s}
+@keyframes wheel{to{transform:rotate(360deg)}}
+/* The side rod: its pins sit on the driving wheels' inner gold dots (16 px off the hub) and turn with them. */
+.rod{left:calc((1331px - 16.8px)*var(--k));top:calc((381px - 16.8px)*var(--k));width:calc((354px + 33.6px)*var(--k));height:calc(33.6px*var(--k));border-style:solid;border-width:0 calc(16.8px*var(--k));border-image:url(assets/train-hd/rod.webp) 0 57 fill/0 calc(16.8px*var(--k)) stretch;transform:translate(calc(16px*var(--k)),0)}
+.train.run .rod{animation:rod .45s linear infinite}
+@keyframes rod{0%,100%{transform:translate(calc(16px*var(--k)),0)}12.5%{transform:translate(calc(11.3px*var(--k)),calc(11.3px*var(--k)))}25%{transform:translate(0,calc(16px*var(--k)))}37.5%{transform:translate(calc(-11.3px*var(--k)),calc(11.3px*var(--k)))}50%{transform:translate(calc(-16px*var(--k)),0)}62.5%{transform:translate(calc(-11.3px*var(--k)),calc(-11.3px*var(--k)))}75%{transform:translate(0,calc(-16px*var(--k)))}87.5%{transform:translate(calc(11.3px*var(--k)),calc(-11.3px*var(--k)))}}
+/* Headlamp beam, only while moving. */
+.beam{left:calc(1968px*var(--k));top:calc(159px*var(--k));width:calc(456px*var(--k));height:calc(82px*var(--k));clip-path:polygon(0 43%,100% 0,100% 100%,0 57%);background:linear-gradient(90deg,rgba(255,214,110,.45),rgba(255,214,110,0));opacity:0}
+.train.run .beam{opacity:1}
+/* Steam from the chimney (1855, 41): three puffs growing, drifting back and fading. */
+.puff{left:calc((1855px - 109px)*var(--k));top:calc((41px - 178px)*var(--k));width:calc(218px*var(--k));height:calc(178px*var(--k));background:url(assets/train-hd/steam2.webp) no-repeat center/100% 100%;transform-origin:50% 100%;opacity:0}
+.train.run .puff{animation:puff 1.43s linear infinite}
+.train.run .puff.p2{animation-delay:-.48s}
+.train.run .puff.p3{animation-delay:-.95s}
+@keyframes puff{0%{opacity:.95;transform:translate(0,0) scale(.375)}100%{opacity:.14;transform:translate(calc(-264px*var(--k)),calc(-168px*var(--k))) scale(1)}}
 @keyframes train-run{0%{opacity:1;transform:translateX(-360px)}100%{opacity:1;transform:translateX(calc(var(--track) + 40px))}}
+
+/* The card's station is the HD painting: scale it smoothly (the old one was 332 x 208 art pixels). */
+.night .station-art img{image-rendering:auto}
 
 /* ---------- Scroll reveal ---------- */
 .reveal{opacity:0;transform:translateY(22px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.7,.2,1)}
@@ -103,11 +112,11 @@
 @media(max-width:700px){
   .notices{height:30px;font-size:9px}.notices-label{padding-left:5%}
   .lamp-glow{width:220px;height:220px}
-  .platform-line{padding-top:96px}.train{--u:1}
+  .platform-line{padding-top:96px}.train{--k:.108}
   .pass-main{min-width:0;flex:1}
 }
 @media(max-width:560px){
-  .platform-line{padding-top:74px}.train{--u:.75;bottom:calc(18px - 3px*var(--u))}.platform-line .rail{bottom:17px}
+  .platform-line{padding-top:74px}.train{--k:.081;bottom:18px}.platform-line .rail{bottom:17px}
   .clock .ist{display:none}
   .lamp-hint{font-size:6px;letter-spacing:1px}
   .lamp-glow{width:170px;height:170px}
