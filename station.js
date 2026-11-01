@@ -3,11 +3,11 @@
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var FLAPS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 
-  // Live IST clock
+  // Live station clock, in the visitor's own time
   var ist = document.querySelector('.clock .ist');
   function tick() {
     if (!ist) return;
-    var t = new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit', hour12: false }).format(new Date()).split(':');
+    var t = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false }).format(new Date()).split(':');
     ist.querySelector('.hh').textContent = t[0];
     ist.querySelector('.mm').textContent = t[1];
   }
