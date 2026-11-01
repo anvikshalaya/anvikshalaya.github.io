@@ -12,7 +12,7 @@
 @keyframes ticker{to{transform:translateX(-50%)}}
 @keyframes blink{50%{opacity:.25}}
 
-/* ---------- Live IST clock ---------- */
+/* ---------- Live station clock (local time) ---------- */
 .clock .ist{font:12px monospace;letter-spacing:2px;color:#cdbb97;margin-right:6px;display:inline-flex;align-items:baseline;gap:6px}
 .clock .ist small{font-size:8px;letter-spacing:1.5px;color:#8f8597}
 .clock .ist .colon{animation:blink 2s steps(2,start) infinite}
